@@ -5,7 +5,11 @@
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "homepage": "https://github.com/amiarSlimane/ember-opening-hours",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amiarSlimane/ember-opening-hours"
+  },
   "license": "MIT",
   "author": "",
   "directories": {
