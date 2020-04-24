@@ -45,6 +45,13 @@ the generate opening hours has the following schema
   }]
 ]
 ```
+
+Demo
+------------------------------------------------------------------------------
+
+ [Opening Hours Demo](https://amiarslimane.github.io/ember-opening-hours/ "Demo")
+
+
 Contributing
 ------------------------------------------------------------------------------
 
