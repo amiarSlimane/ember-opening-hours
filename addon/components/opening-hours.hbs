@@ -1,0 +1,60 @@
+<div class="container px-5 my-5 ">
+  <form class="component px-4 py-4">
+
+
+    {{#each this.openingHours as |openingHour|}}
+    <div class="row col-sm-8 offset-2">
+      <div class="col col-sm-2"> {{openingHour.day}}</div>
+
+      <div class="col col-sm-6">
+        {{#each openingHour.hours as |hour|}}
+
+
+        <label> from </label>
+        <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.from}} required />
+        <label>to </label>
+        <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.to}} required />
+        <button type="button" value={{hour.id}} {{on 'click' this.removeHour}}>
+          <FaIcon @icon="minus-square" @fixedWidth={{true}} />
+        </button>
+        <br />
+        {{/each}}
+      </div>
+
+
+
+      <div class="col col-sm-3">
+        <button type="button" value={{openingHour.day}} {{on 'click' this.addHour}}>
+          <FaIcon @icon="plus-square" @fixedWidth={{true}} />
+        </button>
+        <button type="button" value={{openingHour.day}} {{on 'click' this.removeDay}}>
+          <FaIcon @icon="minus-square" @fixedWidth={{true}} />
+        </button>
+      </div>
+    </div>
+    {{/each}}
+    <div class="row col-sm-8 offset-2 my-4">
+      <div class="col col-sm-6">
+        <label> day </label>
+        <select {{on "change" this.setSelectedDay}}>
+          <option value=''></option>
+          {{#each this.days as |day|}}
+          <option value={{day}}>{{day}}</option>
+          {{/each}}
+        </select>
+        <button type="button" {{on 'click' this.addDay}}>
+          <FaIcon @icon="plus-square" @fixedWidth={{true}} />
+        </button>
+      </div>
+
+
+    </div>
+    <div class="row ">
+      <div class="col col-10 text-sm-right">
+        <a type="button" href="#" class="btn btn-primary" {{on 'click' this.save}}>
+          Save
+        </a></div>
+    </div>
+  </form>
+</div>
+{{yield}}

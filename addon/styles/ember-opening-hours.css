@@ -1,0 +1,4 @@
+ /* disable click on svg */
+svg {
+    pointer-events: none;
+}
