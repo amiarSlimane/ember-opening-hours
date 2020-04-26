@@ -1,6 +1,6 @@
 {
   "name": "ember-opening-hours",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Ember component for opening hours",
   "keywords": [
     "ember-addon"
