@@ -3,6 +3,8 @@ ember-opening-hours
 
 Ember component for opening hours
 
+![](https://raw.githubusercontent.com/amiarSlimane/ember-opening-hours/master/screenshot/ember-opening-hours.png)
+
 
 Compatibility
 ------------------------------------------------------------------------------
