@@ -22,9 +22,18 @@
       <td>{{#each openingHour.hours as |hour|}}
         <div>
           <label> from </label>
-          <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.from}} required />
+          {{!-- <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.from}} required /> --}}
+
+          <EmberFlatpickr @appendDataInput={{true}} @date={{readonly hour.from}} @enableTime={{true}}
+            @locale={{this.locale}} @noCalendar={{true}} 
+           @onChange={{null}} />
+
           <label>to </label>
-          <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.to}} required />
+          {{!-- <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.to}} required /> --}}
+          <EmberFlatpickr @appendDataInput={{true}} @date={{readonly hour.to}} @enableTime={{true}}
+            @locale={{this.locale}} @noCalendar={{true}}
+            @onChange={{null}} />
+
           <button type="button" value={{hour.id}} {{on 'click' this.removeHour}}>
             <FaIcon @icon="minus-square" @fixedWidth={{true}} />
           </button>

@@ -5,6 +5,8 @@ import { v1, v4 } from "ember-uuid";
 
 export default class OpeningHoursComponent extends Component {
 
+
+
   @tracked
   openingHours = []
 
@@ -27,7 +29,7 @@ export default class OpeningHoursComponent extends Component {
     if (day != '') {
       let d = {}
       d.day = this.selectedDay;
-      d.hours = [{ id: v4(), from: '00:00', to: '00:00' }];
+      d.hours = [{ id: v4(), from: Date.now(), to: Date.now() }];
       this.openingHours = [...this.openingHours, d];
       this.days = [...this.days.filter(day => day != d.day)]
     }
@@ -82,7 +84,7 @@ export default class OpeningHoursComponent extends Component {
       d.day = day.day;
       d.hours = day.hours;
       if (day.day == evt.target.value) {
-        let hours = { id: v4(), from: '00:00', to: '00:00' };
+        let hours = { id: v4(), from: Date.now(), to: Date.now() };
         d.hours.push(hours)
       }
       tab.push(d);
@@ -100,4 +102,7 @@ export default class OpeningHoursComponent extends Component {
     this.args.setOpeningHours(this.openingHours)
   }
 
+  @tracked
+  locale = 'en';
+ 
 }
