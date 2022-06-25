@@ -1,10 +1,8 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import { v1, v4 } from "ember-uuid";
 
 export default class OpeningHoursComponent extends Component {
-
 
 
   @tracked
@@ -21,6 +19,9 @@ export default class OpeningHoursComponent extends Component {
     console.log('selected day ', this.selectedDay)
   }
 
+  dayId=0;
+  hourId=0;
+
   @action
   addDay(evt) {
     evt.preventDefault();
@@ -29,7 +30,8 @@ export default class OpeningHoursComponent extends Component {
     if (day != '') {
       let d = {}
       d.day = this.selectedDay;
-      d.hours = [{ id: v4(), from: Date.now(), to: Date.now() }];
+      d.hours = [{ id: this.dayId, from: Date.now(), to: Date.now() }];
+      this.dayId = this.dayId + 1;
       this.openingHours = [...this.openingHours, d];
       this.days = [...this.days.filter(day => day != d.day)]
     }
@@ -84,7 +86,8 @@ export default class OpeningHoursComponent extends Component {
       d.day = day.day;
       d.hours = day.hours;
       if (day.day == evt.target.value) {
-        let hours = { id: v4(), from: Date.now(), to: Date.now() };
+        let hours = { id: this.hourId, from: Date.now(), to: Date.now() };
+        this.hourId = this.hourId + 1;
         d.hours.push(hours)
       }
       tab.push(d);
@@ -104,5 +107,5 @@ export default class OpeningHoursComponent extends Component {
 
   @tracked
   locale = 'en';
- 
+
 }
