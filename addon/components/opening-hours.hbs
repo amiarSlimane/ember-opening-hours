@@ -2,81 +2,106 @@
   <thead>
     <tr>
       <th scope="col">
-        <div class="w100px">Days</div>
+        <div class="w100px">
+          Days
+        </div>
       </th>
       <th scope="col">
-        <div class="w300px">Hours</div>
+        <div class="w300px">
+          Hours
+        </div>
       </th>
       <th scope="col" class="col-2 text-center">
         <div class="w100px">
-          {{!-- <FaIcon @icon="cog" @fixedWidth={{true}} /> --}}cog
+          {{!-- <FaIcon @icon="cog" @fixedWidth={{true}} /> --}}
         </div>
       </th>
     </tr>
   </thead>
   <tbody>
-
     {{#each this.openingHours as |openingHour|}}
-    <tr scope="row">
-      <td> {{openingHour.day}}</td>
-      <td>{{#each openingHour.hours as |hour|}}
-        <div>
-          <label> from </label>
-          {{!-- <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.from}} required /> --}}
-
-          <EmberFlatpickr @appendDataInput={{true}} @date={{readonly hour.from}} @enableTime={{true}}
-            @locale={{this.locale}} @noCalendar={{true}}
-           @onChange={{null}} />
-
-          <label>to </label>
-          {{!-- <Input type="time" id="from" name="from" min="00:00" max="23:59" @value={{hour.to}} required /> --}}
-          <EmberFlatpickr @appendDataInput={{true}} @date={{readonly hour.to}} @enableTime={{true}}
-            {{!-- @locale={{this.locale}} @noCalendar={{true}} --}}-
-            @onChange={{null}} />
-
-          <button type="button" value={{hour.id}} {{on 'click' this.removeHour}}>
-            {{!-- <FaIcon @icon="minus-square" @fixedWidth={{true}} /> --}}-
+      <tr scope="row">
+        <td>
+          {{openingHour.day}}
+        </td>
+        <td>
+          {{#each openingHour.hours as |hour|}}
+            <div>
+              <label>
+                from
+              </label>
+              <Input @type="time" @value={{hour.from}} />
+              <label>
+                to
+              </label>
+              <Input @type="time" @value={{hour.to}} />
+              <button
+                type="button"
+                value={{hour.id}}
+                class="btn btn-secondary"
+                {{on 'click' this.removeHour}}
+              >
+                {{!-- <FaIcon @icon="minus-square" @fixedWidth={{true}} /> --}}
+                -
+              </button>
+              <br />
+            </div>
+          {{/each}}
+        </td>
+        <td class="col-2" align="center">
+          <button
+            type="button"
+            value={{openingHour.day}}
+            class="btn btn-secondary"
+            {{on 'click' this.addHour}}
+          >
+            {{!-- <FaIcon @icon="plus-square" @fixedWidth={{true}} /> --}}
+            +
           </button>
-          <br />
-        </div>
-        {{/each}}
-      </td>
-
-      <td class="col-2" align="center">
-
-        <button type="button" value={{openingHour.day}} {{on 'click' this.addHour}} class="btn btn-secondary">
-          {{!-- <FaIcon @icon="plus-square" @fixedWidth={{true}} /> --}}+
-        </button>
-        <button type="button" value={{openingHour.day}} {{on 'click' this.removeDay}} class="btn btn-danger">
-          {{!-- <FaIcon @icon="minus-square" @fixedWidth={{true}} /> --}}-
-        </button>
-
-      </td>
-    </tr>
-    {{/each }}
-
-
+          <button
+            type="button"
+            value={{openingHour.day}}
+            class="btn btn-danger"
+            {{on 'click' this.removeDay}}
+          >
+            {{!-- <FaIcon @icon="minus-square" @fixedWidth={{true}} /> --}}
+            -
+          </button>
+        </td>
+      </tr>
+    {{/each}}
   </tbody>
   <tfoot>
     <tr>
       <th scope="col" colspan="2">
-        <select {{on "change" this.setSelectedDay}}>
-          <option value=''></option>
+        <select {{on 'change' this.setSelectedDay}}>
+          <option value=""></option>
           {{#each this.days as |day|}}
-          <option value={{day}}>{{day}}</option>
+            <option value={{day}}>
+              {{day}}
+            </option>
           {{/each}}
         </select>
-        <button type="button" {{on 'click' this.addDay}}>
-          {{!-- <FaIcon @icon="plus-square" @fixedWidth={{true}} /> --}}+
+        <button
+          type="button"
+          class="btn btn-secondary"
+          {{on 'click' this.addDay}}
+        >
+          {{!-- <FaIcon @icon="plus-square" @fixedWidth={{true}} /> --}}
+          +
         </button>
       </th>
       <th scope="col" class="col-2 text-center">
-        <a type="button" href="#" class="btn btn-primary" {{on 'click' this.save}}>
+        <a
+          type="button"
+          href="#"
+          class="btn btn-primary"
+          {{on 'click' this.save}}
+        >
           Save
         </a>
       </th>
     </tr>
   </tfoot>
 </table>
-
 {{yield}}
