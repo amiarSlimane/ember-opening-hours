@@ -28,23 +28,22 @@ export default class OpeningHoursComponent extends Component {
     console.log('selected day ', this.selectedDay)
   }
 
-  dayId=0;
-  hourId=0;
-
   @action
   addDay(evt) {
-    evt.preventDefault();
     const day = this.selectedDay;
     console.log('add day ', day);
     if (day != '') {
       let d = {}
       d.day = this.selectedDay;
-      d.hours = [{ id: this.dayId, from: Date.now(), to: Date.now() }];
-      this.dayId = this.dayId + 1;
+      d.hours = [{ id: v4(), from: Date.now(), to: Date.now() }];
       this.openingHours = [...this.openingHours, d];
       this.days = [...this.days.filter(day => day != d.day)]
     }
     this.selectedDay = '';
+
+    console.log('this.days ', this.days);
+    console.log('this.openingHours ', this.openingHours);
+
   }
 
   @action
@@ -71,7 +70,7 @@ export default class OpeningHoursComponent extends Component {
   removeHour(evt) {
     evt.preventDefault();
     console.log('remove ', evt.target.value);
-    let self = this;
+
     let tab = [];
     this.openingHours.forEach(function (day) {
       let d = {};
@@ -80,7 +79,7 @@ export default class OpeningHoursComponent extends Component {
       tab.push(d);
     });
 
-    this.openingHours = [...tab];
+    // this.openingHours = [...tab];
 
   }
 
