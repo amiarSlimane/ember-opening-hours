@@ -1,16 +1,10 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { v1, v4 } from "ember-uuid";
 
 export default class OpeningHoursComponent extends Component {
 
-
-  constructor(...args){
-    super(...args);
-
-    this.openingHours = this.args.openingHours;
-    console.log(' this.openingHours ', this.openingHours);
-  }
   @tracked
   openingHours = []
 
@@ -19,25 +13,30 @@ export default class OpeningHoursComponent extends Component {
 
   selectedDay = '';
 
-  currentHourFrom;
-  currentHourTo;
-
   @action
   setSelectedDay(evt) {
     this.selectedDay = evt.target.value;
     console.log('selected day ', this.selectedDay)
   }
 
+   padTo2Digits(num) {
+    return String(num).padStart(2, '0');
+  }
   @action
   addDay(evt) {
     const day = this.selectedDay;
     console.log('add day ', day);
     if (day != '') {
-      let d = {}
-      d.day = this.selectedDay;
-      d.hours = [{ id: v4(), from: Date.now(), to: Date.now() }];
-      this.openingHours = [...this.openingHours, d];
-      this.days = [...this.days.filter(day => day != d.day)]
+      let dayObject = {}
+      dayObject.day = this.selectedDay;
+
+      const date = new Date('December 14, 2026 08:09:00');
+      const hoursAndMinutes =
+        this.padTo2Digits(date.getHours()) + ':' + this.padTo2Digits(date.getMinutes());
+
+      dayObject.hours = [{ id: v4(), from: hoursAndMinutes, to: hoursAndMinutes}];
+      this.openingHours = [...this.openingHours, dayObject];
+      this.days = [...this.days.filter(day => day != dayObject.day)]
     }
     this.selectedDay = '';
 
@@ -65,19 +64,42 @@ export default class OpeningHoursComponent extends Component {
     this.days = [...this.days, evt.target.value]
   }
 
+  @action
+  timeFromChanged(indexDay,indexHour, evt){
+    console.log('evt ', evt.target.value);
+    this.openingHours[indexDay].hours[indexHour].from = evt.target.value
+    console.log('this.openingHours ', this.openingHours);
+
+  }
 
   @action
-  removeHour(evt) {
-    evt.preventDefault();
-    console.log('remove ', evt.target.value);
+  timeToChanged(indexDay,indexHour, evt){
+    console.log('evt ', evt.target.value);
+    this.openingHours[indexDay].hours[indexHour].to = evt.target.value
 
-    let tab = [];
-    this.openingHours.forEach(function (day) {
-      let d = {};
-      d.day = day.day;
-      d.hours = day.hours.filter(hour => hour.id != evt.target.value)
-      tab.push(d);
-    });
+    console.log('this.openingHours ', this.openingHours);
+
+  }
+
+  @action
+  removeHour(indexDay, indexHour, evt) {
+    console.log('remove indexDay ', indexDay, 'indexHour',indexHour);
+    console.log('this.openingHours ', this.openingHours);
+
+    // let tab = [];
+     this.openingHours[indexDay].hours.splice(indexHour);
+     this.openingHours[indexDay].hours = [...this.openingHours[indexDay].hours]
+     this.openingHours[indexDay] = {...this.openingHours[indexDay]}
+     this.openingHours = [...this.openingHours]
+
+    console.log('this.openingHours ', this.openingHours);
+
+    // this.openingHours.forEach(function (day) {
+    //   let d = {};
+    //   d.day = day.day;
+    //   d.hours = day.hours.filter(hour => hour.id != evt.target.value)
+    //   tab.push(d);
+    // });
 
     // this.openingHours = [...tab];
 
@@ -87,15 +109,14 @@ export default class OpeningHoursComponent extends Component {
   addHour(evt) {
     evt.preventDefault();
     console.log('add ', evt.target.value);
-    let self = this;
+
     let tab = [];
-    this.openingHours.forEach(function (day, index) {
+    this.openingHours.forEach(function (day) {
       let d = {}
       d.day = day.day;
       d.hours = day.hours;
       if (day.day == evt.target.value) {
-        let hours = { id: self.hourId, from: Date.now(), to: Date.now() };
-        self.hourId = index*1000 + self.hourId + 1;
+        let hours = { id: v4(), from: Date.now(), to: Date.now() };
         d.hours.push(hours)
       }
       tab.push(d);
@@ -106,15 +127,7 @@ export default class OpeningHoursComponent extends Component {
 
   }
 
-  @action
-  setFrom(v) {
-    console.log('setFrom ', v);
-  }
 
-  @action
-  setTo(v) {
-    console.log('setFrom ', v);
-  }
 
   @action
   save() {
