@@ -1,7 +1,7 @@
 {
   "name": "ember-opening-hours",
-  "version": "1.0.3",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "1.0.2",
+  "description": "Ember component for opening hours",
   "keywords": [
     "ember-addon"
   ],
