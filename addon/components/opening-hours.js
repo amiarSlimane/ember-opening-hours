@@ -10,11 +10,23 @@ export default class OpeningHoursComponent extends Component {
 
   constructor(...args){
     super(...args);
+    const self = this;
+    let daysCopy = [];
+    this.openingHours = this.args.openingHours.map((openingHour)=>{
+      daysCopy.push(openingHour.day)
+      return openingHour;
+    });
 
-    this.openingHours = this.args.openingHours;
+    let daysOfWeek = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+    daysOfWeek.forEach((day)=>{
+      console.log('day', day)
+      console.log('daysCopy.includes(day)', daysCopy.includes(day))
+       if(!daysCopy.includes(day)) this.days.push(day);
+     });
+
+    console.log('this.days ', this.days);
   }
-  @tracked
-  days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  @tracked days = []
 
   selectedDay = '';
 
@@ -43,6 +55,7 @@ export default class OpeningHoursComponent extends Component {
       dayObject.hours = [{ id: v4(), from: hoursAndMinutes, to: hoursAndMinutes}];
       this.openingHours = [...this.openingHours, dayObject];
       this.days = [...this.days.filter(day => day != dayObject.day)]
+
     }
     this.selectedDay = '';
 
