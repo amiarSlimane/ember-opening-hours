@@ -20,10 +20,32 @@ ember install ember-opening-hours
 ```
 
 
+
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
+```javascript
+<OpeningHours @setOpeningHours={{this.setOpeningHours}}/>
+```
+
+in your controller 
+```javascript
+ @action
+  setOpeningHours(openingHours) {
+    //here you get the opening hours generated as the openingHours arg  
+  }
+```
+the generate opening hours has the following schema 
+```javascript
+[{
+	day:'monday',
+  hours:[{
+	  id: 'a5154c0f-8e58-4b20-986f-799767ea621b',
+	  from: '00:00',
+	  to: '00:00' 
+  }]
+]
+```
 
 
 Contributing
