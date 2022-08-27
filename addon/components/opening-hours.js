@@ -8,10 +8,16 @@ export default class OpeningHoursComponent extends Component {
   @tracked
   openingHours = []
 
+  constructor(...args){
+    super(...args);
+
+    this.openingHours = this.args.openingHours;
+  }
   @tracked
   days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
   selectedDay = '';
+
 
   @action
   setSelectedDay(evt) {
@@ -30,7 +36,7 @@ export default class OpeningHoursComponent extends Component {
       let dayObject = {}
       dayObject.day = this.selectedDay;
 
-      const date = new Date('December 14, 2026 08:09:00');
+      const date = new Date('December 14, 2026 09:00:00');
       const hoursAndMinutes =
         this.padTo2Digits(date.getHours()) + ':' + this.padTo2Digits(date.getMinutes());
 
