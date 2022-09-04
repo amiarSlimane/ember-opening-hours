@@ -18,9 +18,9 @@
 
     {{#each this.openingHours as |openingHour indexDay|}}
     <tr scope="row">
-      <td> {{openingHour.day}}
-        <button type="button" value={{openingHour.day}} {{on 'click' this.removeDay}} class="btn btn-danger">
-          - </button>
+      <td>
+        <button type="button" value={{openingHour.day}} {{on 'click' this.removeDay}} class="btn-sm btn-danger">
+          - </button> {{openingHour.day}}
       </td>
       <td>{{#each openingHour.hours as |hour indexHour|}}
         <div>
@@ -32,7 +32,7 @@
           <label>to </label>
           <Input @type="time" {{on 'change' (fn this.timeToChanged  indexDay indexHour)}} id="to" name="from" min="00:00" max="23:59" @value={{hour.to}} required />
 
-          <button type="button" {{on 'click' (fn this.removeHour indexDay indexHour)}}>
+          <button type="button" {{on 'click' (fn this.removeHour indexDay indexHour)}} class="btn-sm btn-danger">
             -
           </button>
           <br />
@@ -42,7 +42,7 @@
 
       <td class="col-2" align="center">
 
-        <button type="button" value={{openingHour.day}} {{on 'click' this.addHour}} class="btn btn-secondary">
+        <button type="button" value={{openingHour.day}} {{on 'click' this.addHour}} class="btn-sm  btn-secondary">
           {{!-- <FaIcon @icon="plus-square" @fixedWidth={{true}} /> --}}+
         </button>
 
