@@ -62,12 +62,12 @@
           <option value={{day}}>{{day}}</option>
           {{/each}}
         </select>
-        <button type="button" {{on 'click' this.addDay}}>
+        <button type="button" {{on 'click' this.addDay}} class="btn-sm  btn-secodary">
           {{!-- <FaIcon @icon="plus-square" @fixedWidth={{true}} /> --}}+
         </button>
       </th>
       <th scope="col" class="col-2 text-center">
-        <button type="button"  {{on 'click' this.save}}>
+        <button type="button"  {{on 'click' this.save}} class="btn-sm  btn-success">
           Save
         </button>
       </th>
